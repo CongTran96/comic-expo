@@ -54,7 +54,7 @@ class Loading extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={require('../../assets/giphy.gif')} style={styles.image}/>
+                <Image source={require('../../assets/Pikachu_Go.gif')} style={styles.image}/>
             </View>
         );
     }

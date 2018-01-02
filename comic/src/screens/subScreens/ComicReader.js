@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Footer, Header, Left, Right, Body, Icon, Button, Title, Spinner } from 'native-base';
 import ListChapter from '../../components/List/ListChapter';
@@ -38,7 +38,6 @@ class ComicReader extends Component {
         // save data to the property comicUrl of state 
 
         let dataComicPaper = await fetchData(this.props.linkComic);
-        console.log(this.props.linkComic);
         let comicUrl = await arrayImageSrc(dataComicPaper);
 
         this.setState({ comicUrl });
@@ -53,12 +52,19 @@ class ComicReader extends Component {
         }
     }
 
-    goNextChap() {
+    async goNextChap() {
         let chapter = this.props.comic.chapter;
-        let nextComic = chapter[chapter.length - this.props.indexCurrentComic - 1];
-        this.props.dispatch(changeUrl(nextComic.link_url));
-        this.props.dispatch(setIndexCurrentComic(parseInt(nextComic.name)));
-        this.criping();
+        if (this.props.indexCurrentComic === 0){
+            console.log('running');
+            Alert.alert(
+                `Chưa có chap mới hơn! Bạn đợi thêm nhé ^.^`
+            )}
+        else {
+            let nextComic = chapter[this.props.indexCurrentComic - 1];
+            await this.props.dispatch(changeUrl(nextComic.link_url));
+            await this.props.dispatch(setIndexCurrentComic(parseInt(this.props.indexCurrentComic - 1)));
+            this.criping();
+        }
     }
 
     render() {

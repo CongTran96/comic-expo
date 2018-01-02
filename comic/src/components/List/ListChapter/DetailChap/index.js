@@ -10,11 +10,11 @@ class Item extends React.PureComponent {
 
     render() {
         const { name, link_url } = this.props.item;
-        const { onPress } = this.props;
+        const { onPress, indexChapter } = this.props;
 
         return (
             <TouchableHighlight  activeOpacity={0.8} underlayColor='rgba(255,255,255,0.7)'
-                onPress={() => onPress(this.props.item) }>
+                onPress={() => onPress(this.props.item, indexChapter) }>
                 <View style={styles.viewChapter}>
                     <Text style={styles.textChapter}>
                         <Icon name='ios-leaf' style={[styles.iconStyle, styles.leaf]} />  CHAP {name} </Text>

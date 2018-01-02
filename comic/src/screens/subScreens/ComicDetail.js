@@ -10,7 +10,7 @@ import ListChapter from '../../components/List/ListChapter';
 import ComicInstruction from '../../components/InstructionDetail';
 import fetchData from '../../extends/FetchData';
 import NavigationBar from '../NavigationBar';
-import { BallIndicator } from 'react-native-indicators';
+import { WaveIndicator } from 'react-native-indicators';
 
 const background = require('../../assets/lover_butterfly.jpg');
 
@@ -81,11 +81,11 @@ class ComicDetail extends Component {
         this.setState({ isLoading: false });
     }
 
-    onSelectedChapter(item) {
+    onSelectedChapter(item, index) {
         const comic = this.state.comic;
         const { navigate, goBack } = this.props.navigation;
         this.props.dispatch(changeUrl(item.link_url));
-        this.props.dispatch(setIndexCurrentComic(item.name - 1));
+        this.props.dispatch(setIndexCurrentComic(index));
         navigate('Reader', { comic });
         // goBack();
     }
@@ -111,39 +111,40 @@ class ComicDetail extends Component {
         let loveStyle = this.state.saved ? [styles.iconStyle, { color: 'red' }] : styles.iconStyle;
         let comic = this.state.comic;
 
-        if (this.state.isLoading) return <BallIndicator color='white'/>;
-
         return (
-            <StyleProvider style={getTheme()} >
-                <Container>
-                    <Image style={[styles.backgroundImage]}
-                        source={background} />
-                    <View style={[styles.backgroundImage, styles.opacityBackground]}>
-                    </View>
-                    <Header>
-                        <Left>
-                            <Button transparent onPress={() => { return this.props.navigation.goBack() }} >
-                                <Icon name='ios-arrow-back' style={styles.iconStyle} />
-                            </Button>
-                        </Left>
-                        <Body>
-                            <Title style={styles.textChapter}> {this.state.comic.name} </Title>
-                        </Body>
-                        <Right>
-                            <Button transparent onPress={this.onSave.bind(this)}>
-                                <Icon ios='ios-heart' android='md-heart' style={loveStyle} />
-                            </Button>
-                        </Right>
-                    </Header>
-                    <Content>
-                        <NavigationBar
-                            screenProps={{ comic, data: comic.chapter, type: "detail", onSelectItem: this.onSelectedChapter.bind(this) }} />
-                        {/* <ListChapter data={this.state.comic.chapter} 
+            <View style={{ flex: 1 }}>
+                <Image style={[styles.backgroundImage]}
+                    source={background} />
+                <View style={[styles.backgroundImage, styles.opacityBackground]}>
+                </View>
+                {this.state.isLoading ? <WaveIndicator color='#332626' size={80}/> :
+                    <StyleProvider style={getTheme()} >
+                        <Container>
+                            <Header>
+                                <Left>
+                                    <Button transparent onPress={() => { return this.props.navigation.goBack() }} >
+                                        <Icon name='ios-arrow-back' style={styles.iconStyle} />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Title style={styles.textChapter}> {this.state.comic.name} </Title>
+                                </Body>
+                                <Right>
+                                    <Button transparent onPress={this.onSave.bind(this)}>
+                                        <Icon ios='ios-heart' android='md-heart' style={loveStyle} />
+                                    </Button>
+                                </Right>
+                            </Header>
+                            <Content>
+                                <NavigationBar
+                                    screenProps={{ comic, data: comic.chapter, type: "detail", onSelectItem: this.onSelectedChapter.bind(this) }} />
+                                {/* <ListChapter data={this.state.comic.chapter} 
                             type='detail' 
                             onSelectItem={this.onSelectedChapter.bind(this)} /> */}
-                    </Content>
-                </Container>
-            </StyleProvider>
+                            </Content>
+                        </Container>
+                    </StyleProvider>}
+            </View>
         );
     }
 }

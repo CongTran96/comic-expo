@@ -25,12 +25,12 @@ class List extends Component {
 
     _keyExtractor = (item, index) => index;
 
-    renderItem({ item }) {
-        const { type, onSelectItem } = this.props;            
-
+    renderItem({ item, index }) {
+        const { type, onSelectItem } = this.props;
+        
         if (type === 'Reader') return <ComicPage item={item} />;
         if (type === 'NewChap') return <NewChapter item={item} onPress={onSelectItem} />;
-        if (type === 'detail') return <DetailChap item={item} onPress={onSelectItem} />;
+        if (type === 'detail') return <DetailChap item={item} onPress={onSelectItem} indexChapter={index}/>;
         if (type === 'gender') return <GenreCatelogy item={item} onPress={onSelectItem} />;
         if (type === 'SerchComic') return <ComicSearch item={item} onPress={onSelectItem} />
     }
