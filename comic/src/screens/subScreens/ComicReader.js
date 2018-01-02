@@ -82,7 +82,7 @@ class ComicReader extends Component {
                     <Right>
                         <Button transparent
                             onPress={() => { this.goNextChap() }} >
-                            <Text style={styles.nextChap}> Next Chap </Text>
+                            <Text style={styles.nextChap}> Chap Tiếp </Text>
                             <Icon name='ios-arrow-forward' style={[styles.iconStyle, { color: '#fff' }]} />
                         </Button>
                     </Right>
