@@ -5,11 +5,9 @@ This's comic app that was build from react native and expo.
 
 * Download and install `Nodejs`
 
-click this link `https://nodejs.org/dist/v10.14.2/node-v10.14.2.pkg`.
+click this link [https://nodejs.org/dist/v10.14.2/node-v10.14.2.pkg](https://nodejs.org/dist/v10.14.2/node-v10.14.2.pkg).
 
 * Install expo-cli in terminal(MacOS) or CMD(windows):
-
-npm install expo-cli --global
 
 ```bash
     npm install expo-cli --global
